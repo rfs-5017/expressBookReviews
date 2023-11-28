@@ -4,11 +4,11 @@ let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
 
+
 public_users.post("/register", (req,res) => {
   //Write your code here - Taks 6 - Work
   const username = req.body.username;
   const password = req.body.password;
-  //res.send("The user " + (' ') + (req.body.username) + " Has been added!");
   if (username && password) {
     if (!isValid(username)) { 
       users.push({"username":username,"password":password});
@@ -43,7 +43,7 @@ public_users.get('/author/:author',function (req, res) {
     const req_author = req.params.author;
     bookslist_array = books;
     authorlist_array = {};
-    console.log(Object.getOwnPropertyNames(object1)); // sacar
+    console.log(Object.getOwnPropertyNames(object1)); // sacar da error
     for(var key in bookslist_array) {
         if(bookslist_array.hasOwnProperty(key)) {
             var value = bookslist_array[key];
@@ -80,46 +80,10 @@ public_users.get('/review/:isbn',function (req, res) {
   //Write your code here - Task 5
   const isbn = req.params.isbn;
   var book = (books[isbn]);
-  //console.log("Hello this is the GET REQUEST Get book review")
-  //res.send(book);
+
+  //res.send(`The book with isbn ${isbn} has/have the review/s: ` + book.reviews);
   res.send(book.reviews);
-});
-
-// agrego esto para probar sin auth
-public_users.post("/reviewtest/:isbn", (req, res) => {
-  //Write your code here - Task 8
-  const isbn = req.params.isbn;
-  console.log("isbn: " + isbn);
-
-  // if (isbn) isbn Validation?
-
-  bookslist_array = books;
-
-  // dont worlk --> var book = (books[isbn]);
-  console.log("Book" + JSON.stringify(books[isbn]));
-
-  //for(var key in bookslist_array) {
-  //  if(bookslist_array.hasOwnProperty(key)) {
-  //      var value = bookslist_array[key];
-  //  }
-  //}
-  let book = books[isbn];
-  let author = bookslist_array[isbn].author;
-  let title  = bookslist_array[isbn].title;
-  let review = "testing"; //bookslist_array[isbn].review;
-  console.log("author: " + author);
-
-  {
-    books[isbn] = {
-        "author":author,
-        "title":title,
-        "reviews":review
-        }
-  }
-  res.send("The book" + (' ')+ JSON.stringify(books[isbn]) + " Has been added!");
 
 });
-
-
 
 module.exports.general = public_users;
