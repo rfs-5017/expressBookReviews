@@ -62,15 +62,9 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   if (filtered_book) { //Check if the book exists
     let copiedReviews = Object.assign({}, books[isbn].reviews);
     console.log("Reviews List:");
-    let flagUserExist = false;
     for (const prop in copiedReviews) {
       console.log(`copiedReviews.${prop} = ${copiedReviews[prop]}`); //sacar
-      if (copiedReviews.user === lastLoginUser){
-        flagUserExist = true;
-        break;
-      }
     }
-    console.log("flagUserExist: : " + flagUserExist);
 
     books[isbn].reviews[lastLoginUser] = req.query.reviews;
     res.send(`Review of user ${lastLoginUser} for the book with isbn ${isbn} has been added or updated.`);
