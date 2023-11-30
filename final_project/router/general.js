@@ -23,13 +23,13 @@ public_users.post("/register", (req,res) => {
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
-  //Write your code here - Task 1 - work
+  //Write your code here - Task 1 - Works
   res.send(JSON.stringify(books,null,4));
 });
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
-  //Write your code here - Task 2 - work
+  //Write your code here - Task 2 - Works
   const isbn = req.params.isbn;
   res.send(books[isbn]);
  });
@@ -69,7 +69,6 @@ public_users.get('/title/:title',function (req, res) {
           if  (value["title"] == req_title) {
             titlelist_array[key] = value;
           }
-
       }
   }
   res.send(titlelist_array);
@@ -80,10 +79,7 @@ public_users.get('/review/:isbn',function (req, res) {
   //Write your code here - Task 5
   const isbn = req.params.isbn;
   var book = (books[isbn]);
-
-  //res.send(`The book with isbn ${isbn} has/have the review/s: ` + book.reviews);
   res.send(book.reviews);
-
 });
 
 module.exports.general = public_users;
